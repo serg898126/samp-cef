@@ -7,16 +7,15 @@
   <link rel="stylesheet" href="auth.css" />
 </head>
 <body>
-  <div class="wrap">
-    <div class="panel">
+  <div class="fade" id="fade"></div>
+
+  <div class="wrap" id="wrap">
+    <!-- ===== LOGIN / REGISTER ===== -->
+    <div class="panel" id="panelAuth">
       <div class="panel-edge"></div>
-      <div class="panel-shine"></div>
 
       <div class="header">
-        <div class="badge">
-          <span class="badge-dot"></span>
-          <span class="badge-text">SECURE</span>
-        </div>
+        <div class="badge"><span class="badge-dot"></span><span>SECURE</span></div>
         <h1>RolePlay</h1>
         <p class="tagline" id="subtitle">Вход в аккаунт</p>
       </div>
@@ -25,12 +24,6 @@
         <div class="field">
           <label>Никнейм</label>
           <div class="control locked">
-            <span class="icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </span>
             <input type="text" id="nickname" readonly tabindex="-1" />
           </div>
         </div>
@@ -38,30 +31,13 @@
         <div class="field">
           <label>Пароль</label>
           <div class="control">
-            <span class="icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M8 11V8a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-            </span>
             <input type="password" id="password" placeholder="Введите пароль" maxlength="32" />
-            <button type="button" class="eye" id="togglePass" tabindex="-1" title="Показать">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.6"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-            </button>
           </div>
         </div>
 
         <div class="field" id="confirmField" hidden>
           <label>Повтор пароля</label>
           <div class="control">
-            <span class="icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
             <input type="password" id="password2" placeholder="Повторите пароль" maxlength="32" />
           </div>
         </div>
@@ -78,6 +54,26 @@
         <span id="switchText">Нет аккаунта?</span>
         <button type="button" id="switchBtn">Регистрация</button>
       </div>
+    </div>
+
+    <!-- ===== SKIN SELECT ===== -->
+    <div class="panel skin-panel" id="panelSkin" hidden>
+      <div class="panel-edge"></div>
+      <div class="header">
+        <h1>Персонаж</h1>
+        <p class="tagline">Выбери внешность</p>
+      </div>
+
+      <div class="skin-row">
+        <button type="button" class="arrow" id="btnPrev">&#10094;</button>
+        <div class="skin-num" id="skinId">77</div>
+        <button type="button" class="arrow" id="btnNext">&#10095;</button>
+      </div>
+
+      <button type="button" class="submit" id="btnPick">
+        <span class="submit-bg"></span>
+        <span class="submit-text">Выбрать персонажа</span>
+      </button>
     </div>
   </div>
 

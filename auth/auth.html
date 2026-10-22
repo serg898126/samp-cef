@@ -10,7 +10,7 @@
   <div class="fade" id="fade"></div>
 
   <div class="wrap" id="wrap">
-    <!-- ===== LOGIN / REGISTER ===== -->
+    <!-- LOGIN / REGISTER -->
     <div class="panel" id="panelAuth">
       <div class="panel-edge"></div>
 
@@ -56,24 +56,22 @@
       </div>
     </div>
 
-    <!-- ===== SKIN SELECT ===== -->
+    <!-- SKIN SELECT -->
     <div class="panel skin-panel" id="panelSkin" hidden>
       <div class="panel-edge"></div>
       <div class="header">
         <h1>Персонаж</h1>
-        <p class="tagline">Выбери внешность</p>
+        <p class="tagline" id="skinName">Бездомный 1</p>
       </div>
 
       <div class="skin-row">
         <button type="button" class="arrow" id="btnPrev">&#10094;</button>
-        <div class="skin-num" id="skinId">77</div>
+        <button type="button" class="submit skin-pick" id="btnPick">
+          <span class="submit-bg"></span>
+          <span class="submit-text">Выбрать персонажа</span>
+        </button>
         <button type="button" class="arrow" id="btnNext">&#10095;</button>
       </div>
-
-      <button type="button" class="submit" id="btnPick">
-        <span class="submit-bg"></span>
-        <span class="submit-text">Выбрать персонажа</span>
-      </button>
     </div>
   </div>
 

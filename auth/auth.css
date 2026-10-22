@@ -110,21 +110,37 @@ html, body {
   font-size: 13px; font-weight: 600; cursor: pointer; margin-left: 4px;
 }
 
-/* skin */
+/* ===== SKIN ===== */
+.skin-panel .header { margin-bottom: 22px; }
+
 .skin-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 24px; margin: 18px 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 8px 0 6px;
 }
+
 .arrow {
-  width: 56px; height: 56px; border-radius: 50%;
+  flex-shrink: 0;
+  width: 52px; height: 52px;
+  border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.12);
-  background: #1a1a22; color: #F28A47;
-  font-size: 24px; cursor: pointer;
+  background: #1a1a22;
+  color: #F28A47;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.15s;
 }
-.arrow:hover { background: rgba(242,138,71,0.18); }
-.skin-num {
-  min-width: 90px; text-align: center;
-  font-size: 40px; font-weight: 700;
-  background: linear-gradient(90deg, #F6C453, #F28A47, #E65368);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+.arrow:hover {
+  background: rgba(242,138,71,0.18);
+  transform: scale(1.05);
+}
+
+.skin-pick {
+  flex: 1;
+  max-width: 220px;
+  height: 52px;
+  margin-top: 0;
 }

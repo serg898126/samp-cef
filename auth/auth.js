@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  var fade = document.getElementById("fade");
+  var panelAuth = document.getElementById("panelAuth");
+  var panelSkin = document.getElementById("panelSkin");
   var form = document.getElementById("authForm");
   var nicknameEl = document.getElementById("nickname");
   var passwordEl = document.getElementById("password");
@@ -12,34 +15,28 @@
   var subtitle = document.getElementById("subtitle");
   var switchText = document.getElementById("switchText");
   var switchBtn = document.getElementById("switchBtn");
-  var togglePass = document.getElementById("togglePass");
+  var skinId = document.getElementById("skinId");
+  var btnPrev = document.getElementById("btnPrev");
+  var btnNext = document.getElementById("btnNext");
+  var btnPick = document.getElementById("btnPick");
 
   var mode = "login";
   var busy = false;
 
-  function emit(event, data) {
-    if (typeof cef !== "undefined" && cef.emit) {
-      cef.emit(event, String(data));
-    }
+  function emit(ev, data) {
+    if (typeof cef !== "undefined" && cef.emit) cef.emit(ev, String(data || ""));
   }
 
   function showError(msg) {
     errorEl.textContent = msg;
     errorEl.hidden = false;
   }
-
-  function hideError() {
-    errorEl.hidden = true;
-  }
+  function hideError() { errorEl.hidden = true; }
 
   function setLoading(state) {
     busy = state;
     submitBtn.disabled = state;
-    btnText.textContent = state
-      ? "..."
-      : mode === "login"
-        ? "Войти"
-        : "Зарегистрироваться";
+    btnText.textContent = state ? "..." : (mode === "login" ? "Войти" : "Зарегистрироваться");
   }
 
   function setMode(next) {
@@ -47,7 +44,6 @@
     hideError();
     passwordEl.value = "";
     password2El.value = "";
-
     if (mode === "login") {
       subtitle.textContent = "Вход в аккаунт";
       btnText.textContent = "Войти";
@@ -63,11 +59,23 @@
     }
   }
 
+  function showSkinPanel(id) {
+    panelAuth.classList.add("hide");
+    fade.classList.add("on");
+    setTimeout(function () {
+      panelAuth.hidden = true;
+      panelSkin.hidden = false;
+      skinId.textContent = String(id || "77");
+      fade.classList.remove("on");
+      panelSkin.classList.remove("hide");
+    }, 450);
+  }
+
   if (typeof cef !== "undefined" && cef.on) {
     cef.on("auth:init", function (args) {
-      var parts = String(args || "").trim().split(/\s+/);
-      nicknameEl.value = parts[0] || "Player";
-      setMode(parts[1] === "register" ? "register" : "login");
+      var p = String(args || "").trim().split(/\s+/);
+      nicknameEl.value = p[0] || "Player";
+      setMode(p[1] === "register" ? "register" : "login");
     });
 
     cef.on("auth:error", function (msg) {
@@ -75,8 +83,21 @@
       showError(msg || "Ошибка");
     });
 
+    // успешный логин — только затемнение, сервер сам закроет
     cef.on("auth:success", function () {
       setLoading(false);
+      panelAuth.classList.add("hide");
+      fade.classList.add("on");
+    });
+
+    // регистрация — переход к выбору скина в том же CEF
+    cef.on("auth:skin", function (id) {
+      setLoading(false);
+      showSkinPanel(id);
+    });
+
+    cef.on("skin:update", function (id) {
+      skinId.textContent = String(id || "");
     });
   }
 
@@ -84,34 +105,25 @@
     if (!busy) setMode(mode === "login" ? "register" : "login");
   };
 
-  togglePass.onclick = function () {
-    var show = passwordEl.type === "password";
-    passwordEl.type = show ? "text" : "password";
-    password2El.type = show ? "text" : "password";
-  };
-
   form.onsubmit = function (e) {
     e.preventDefault();
     if (busy) return;
-
     var pass = passwordEl.value;
     var pass2 = password2El.value;
     hideError();
-
-    if (pass.length < 4) {
-      showError("Пароль не короче 4 символов");
-      return;
-    }
-    if (mode === "register" && pass !== pass2) {
-      showError("Пароли не совпадают");
-      return;
-    }
-
+    if (pass.length < 4) { showError("Пароль не короче 4 символов"); return; }
+    if (mode === "register" && pass !== pass2) { showError("Пароли не совпадают"); return; }
     setLoading(true);
     emit("auth:submit", mode + " " + pass);
   };
 
-  setTimeout(function () {
-    passwordEl.focus();
-  }, 200);
+  btnPrev.onclick = function () { emit("skin:prev"); };
+  btnNext.onclick = function () { emit("skin:next"); };
+  btnPick.onclick = function () {
+    panelSkin.classList.add("hide");
+    fade.classList.add("on");
+    setTimeout(function () { emit("skin:confirm"); }, 400);
+  };
+
+  setTimeout(function () { passwordEl.focus(); }, 200);
 })();

@@ -15,13 +15,26 @@
   var subtitle = document.getElementById("subtitle");
   var switchText = document.getElementById("switchText");
   var switchBtn = document.getElementById("switchBtn");
-  var skinId = document.getElementById("skinId");
+  var skinName = document.getElementById("skinName");
   var btnPrev = document.getElementById("btnPrev");
   var btnNext = document.getElementById("btnNext");
   var btnPick = document.getElementById("btnPick");
 
   var mode = "login";
   var busy = false;
+
+  // ID скина → название
+  var SKIN_NAMES = {
+    134: "Бездомный 1",
+    135: "Бездомный 2",
+    136: "Бездомный 3",
+    137: "Бездомный 4",
+    200: "Бездомный 5",
+    212: "Бездомный 6",
+    213: "Бездомный 7",
+    230: "Бездомный 8",
+    239: "Бездомный 9"
+  };
 
   function emit(ev, data) {
     if (typeof cef !== "undefined" && cef.emit) cef.emit(ev, String(data || ""));
@@ -59,13 +72,17 @@
     }
   }
 
+  function updateSkinName(id) {
+    skinName.textContent = SKIN_NAMES[id] || ("Бездомный");
+  }
+
   function showSkinPanel(id) {
     panelAuth.classList.add("hide");
     fade.classList.add("on");
     setTimeout(function () {
       panelAuth.hidden = true;
       panelSkin.hidden = false;
-      skinId.textContent = String(id || "77");
+      updateSkinName(id || 134);
       fade.classList.remove("on");
       panelSkin.classList.remove("hide");
     }, 450);
@@ -83,21 +100,19 @@
       showError(msg || "Ошибка");
     });
 
-    // успешный логин — только затемнение, сервер сам закроет
     cef.on("auth:success", function () {
       setLoading(false);
       panelAuth.classList.add("hide");
       fade.classList.add("on");
     });
 
-    // регистрация — переход к выбору скина в том же CEF
     cef.on("auth:skin", function (id) {
       setLoading(false);
-      showSkinPanel(id);
+      showSkinPanel(parseInt(id, 10) || 134);
     });
 
     cef.on("skin:update", function (id) {
-      skinId.textContent = String(id || "");
+      updateSkinName(parseInt(id, 10) || 134);
     });
   }
 

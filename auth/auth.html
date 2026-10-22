@@ -9,68 +9,159 @@
 <body>
   <div class="fade" id="fade"></div>
 
-  <div class="wrap" id="wrap">
-    <!-- LOGIN / REGISTER -->
-    <div class="panel" id="panelAuth">
-      <div class="panel-edge"></div>
+  <div class="wrap">
+    <div class="panel" id="panel">
+      <div class="ring"></div>
 
-      <div class="header">
-        <div class="badge"><span class="badge-dot"></span><span>SECURE</span></div>
-        <h1>RolePlay</h1>
-        <p class="tagline" id="subtitle">Вход в аккаунт</p>
-      </div>
+      <div class="body">
 
-      <form id="authForm" autocomplete="off">
-        <div class="field">
-          <label>Никнейм</label>
-          <div class="control locked">
-            <input type="text" id="nickname" readonly tabindex="-1" />
+        <!-- ===== ЛЕВАЯ ЧАСТЬ (бренд, общая для обоих экранов) ===== -->
+        <aside class="art">
+          <span class="orb o1"></span>
+          <span class="orb o2"></span>
+          <span class="orb o3"></span>
+
+          <div class="brand">
+            <div class="mark">
+              <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                <defs>
+                  <linearGradient id="gm" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#F6C453"/><stop offset=".5" stop-color="#F28A47"/><stop offset="1" stop-color="#E65368"/>
+                  </linearGradient>
+                </defs>
+                <path d="M12 2 3 6v6c0 5 3.8 8.6 9 10 5.2-1.4 9-5 9-10V6l-9-4Z" fill="none" stroke="url(#gm)" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="url(#gm)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label>Пароль</label>
-          <div class="control">
-            <input type="password" id="password" placeholder="Введите пароль" maxlength="32" />
+          <div class="art-text">
+            <h1 class="wordmark">RolePlay</h1>
+            <p class="art-sub">Твоя история начинается здесь</p>
           </div>
-        </div>
 
-        <div class="field" id="confirmField" hidden>
-          <label>Повтор пароля</label>
-          <div class="control">
-            <input type="password" id="password2" placeholder="Повторите пароль" maxlength="32" />
+          <ul class="perks">
+            <li><i></i>Защищённый вход</li>
+            <li><i></i>Прогресс сохраняется на сервере</li>
+          </ul>
+        </aside>
+
+        <!-- ===== ПРАВАЯ ЧАСТЬ ===== -->
+        <section class="side">
+
+          <!-- LOGIN / REGISTER -->
+          <div class="view active" id="panelAuth">
+            <div class="rise" style="--i:0">
+              <h2 class="title swap" id="title">С возвращением</h2>
+              <p class="sub swap" id="subtitle">Войдите, чтобы продолжить</p>
+            </div>
+
+            <div class="tabs rise" id="tabs" style="--i:1">
+              <button type="button" class="tab active" id="tabLogin">Вход</button>
+              <button type="button" class="tab" id="tabReg">Регистрация</button>
+              <span class="tab-pill"></span>
+            </div>
+
+            <form id="authForm" autocomplete="off">
+              <div class="field rise" style="--i:2">
+                <label for="nickname">Никнейм</label>
+                <div class="control locked">
+                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                  <input type="text" id="nickname" readonly tabindex="-1" />
+                  <svg class="lock" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                </div>
+              </div>
+
+              <div class="field rise" style="--i:3">
+                <label for="password">Пароль</label>
+                <div class="control">
+                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></svg>
+                  <input type="password" id="password" placeholder="Введите пароль" maxlength="32" />
+                  <button type="button" class="eye" id="eye1" tabindex="-1" aria-label="Показать пароль">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+
+                <div class="collapse" id="strengthWrap"><div>
+                  <div class="strength" id="strength">
+                    <span></span><span></span><span></span><span></span>
+                    <em id="strengthText"></em>
+                  </div>
+                </div></div>
+              </div>
+
+              <div class="collapse" id="confirmWrap"><div>
+                <div class="field">
+                  <label for="password2">Повтор пароля</label>
+                  <div class="control">
+                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+                    <input type="password" id="password2" placeholder="Повторите пароль" maxlength="32" tabindex="-1" />
+                  </div>
+                </div>
+              </div></div>
+
+              <div class="collapse" id="capsWrap"><div>
+                <div class="note caps">Включён Caps Lock</div>
+              </div></div>
+
+              <div class="collapse" id="errorWrap"><div>
+                <div class="note error" id="error"></div>
+              </div></div>
+
+              <button type="submit" class="submit rise" id="submitBtn" style="--i:4">
+                <span class="submit-bg"></span>
+                <span class="submit-text"><i class="spinner"></i><span id="btnText">Войти</span></span>
+              </button>
+            </form>
+
+            <div class="footer rise" style="--i:5">
+              <span id="switchText">Нет аккаунта?</span>
+              <button type="button" id="switchBtn">Регистрация</button>
+            </div>
           </div>
-        </div>
 
-        <div class="error" id="error" hidden></div>
+          <!-- SKIN SELECT -->
+          <div class="view skin-view" id="panelSkin">
+            <div class="rise" style="--i:0">
+              <h2 class="title">Персонаж</h2>
+              <p class="sub">Выбери внешность</p>
+            </div>
 
-        <button type="submit" class="submit" id="submitBtn">
-          <span class="submit-bg"></span>
-          <span class="submit-text" id="btnText">Войти</span>
-        </button>
-      </form>
+            <div class="stage rise" style="--i:1">
+              <button type="button" class="arrow" id="btnPrev" aria-label="Предыдущий скин">
+                <svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>
+              </button>
 
-      <div class="footer">
-        <span id="switchText">Нет аккаунта?</span>
-        <button type="button" id="switchBtn">Регистрация</button>
-      </div>
-    </div>
+              <div class="dial">
+                <svg class="dial-svg" viewBox="0 0 220 220" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#F6C453"/><stop offset=".5" stop-color="#F28A47"/><stop offset="1" stop-color="#E65368"/>
+                    </linearGradient>
+                  </defs>
+                  <circle class="dial-base" cx="110" cy="110" r="100"/>
+                  <circle class="dial-arc" cx="110" cy="110" r="100" stroke="url(#gd)"/>
+                </svg>
+                <div class="dial-in">
+                  <span class="skin-label">Скин</span>
+                  <div class="skin-num" id="skinId">77</div>
+                </div>
+              </div>
 
-    <!-- SKIN SELECT -->
-    <div class="panel skin-panel" id="panelSkin" hidden>
-      <div class="panel-edge"></div>
-      <div class="header">
-        <h1>Персонаж</h1>
-        <p class="tagline" id="skinName">Бездомный 1</p>
-      </div>
+              <button type="button" class="arrow" id="btnNext" aria-label="Следующий скин">
+                <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+            </div>
 
-      <div class="skin-row">
-        <button type="button" class="arrow" id="btnPrev">&#10094;</button>
-        <button type="button" class="submit skin-pick" id="btnPick">
-          <span class="submit-bg"></span>
-          <span class="submit-text">Выбрать персонажа</span>
-        </button>
-        <button type="button" class="arrow" id="btnNext">&#10095;</button>
+            <p class="skin-hint rise" style="--i:2">Можно листать стрелками ← → на клавиатуре</p>
+
+            <button type="button" class="submit rise" id="btnPick" style="--i:3">
+              <span class="submit-bg"></span>
+              <span class="submit-text"><span>Выбрать персонажа</span></span>
+            </button>
+          </div>
+
+        </section>
       </div>
     </div>
   </div>
